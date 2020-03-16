@@ -1,33 +1,32 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components/native';
 
-const Logo = props => (
-  <Container>
-    <Image source={props.image} resizeMode="contain" />
-    <Text>{props.text}</Text>
-  </Container>
-);
+export default function Logo(props) {
+  return (
+    <Container>
+        <Image  source={props.image} />
+        <Text>{props.title}</Text>
+     </Container>
+  );
+}
 
-export default Logo;
+export const Container = styled.View`
+    flex-direction:row;
+    align-items:center;
+    margin:0px 8px;
+    height:60px;
+    padding:10px;
+    border-radius:10px;
+    background:rgba(0,0,0,0.09);
+    box-shadow:0 5px 10px rgba(0,0,0,0.25);
+`
+export const Image = styled.Image`
+    width:40px;
+    height:40px;
+`
 
-const Container = styled.View`
-  flex-direction: row;
-  background: white;
-  height: 60px;
-  padding: 12px 16px 12px;
-  border-radius: 10px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
-  align-items: center;
-  margin: 0 8px;
-`;
-
-const Image = styled.Image`
-  width: 36px;
-  height: 36px;
-`;
-
-const Text = styled.Text`
-  font-weight: 600;
-  font-size: 17px;
-  margin-left: 8px;
-`;
+export const Text = styled.Text`
+    font-weight:bold;
+    font-size:17px;
+    margin-left:10px;
+`

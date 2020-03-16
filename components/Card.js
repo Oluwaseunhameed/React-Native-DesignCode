@@ -1,84 +1,79 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import  styled from 'styled-components/native';
 
-const Card = props => (
-  <Container>
-    <Cover>
-      <Image source={props.image} />
-      <Title>{props.title}</Title>
-    </Cover>
-    <Content>
-      <Logo source={props.logo} />
-      <Wrapper>
-        <Caption>{props.caption}</Caption>
-        <Subtitle>{props.subtitle}</Subtitle>
-      </Wrapper>
-    </Content>
-  </Container>
-);
 
-export default Card;
 
-const Content = styled.View`
-  padding-left: 20px;
-  flex-direction: row;
-  align-items: center;
-  height: 80px;
+export default function Card(props) {
+    return (
+       <Container>
+           <Cover>
+               <Images source={{uri:props.image}} />
+               <Title>{props.title}</Title>
+           </Cover>
+           <Content>
+               <Logo source={{uri:'https://bit.ly/39QhSpZ'}} />
+               <Wrapper>  
+                   <Caption>{props.caption}</Caption>
+                   <Subtitle>{props.subtitle.toUpperCase()}</Subtitle>
+               </Wrapper>
+           </Content>
+       </Container>
+  );
+}
+export const Content = styled.View`
+    flex-direction:row;
+    align-items:center;
+    height:80px; 
+`
+export const Logo = styled.Image`
+    width:44px;
+    height:44px;
+    margin-left:20px;
+
+`
+
+export const Wrapper = styled.View`
+    margin-left:15px;
+    height:50%;
+`
+export const Caption = styled.Text`
+    font-size:20px;
+    color:black;
+    font-weight:bold;
+`
+
+export const Subtitle = styled.Text`
+    font-size:15px;
+    color:grey;
+    font-weight:500;
+`
+
+export const Container = styled.View`
+  width:340px;
+  margin:20px 10px;
+  height:280px;
+  background:rgba(0,0,0,0.05); 
+  border-radius:20px;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.5);
 `;
 
-const Logo = styled.Image`
-  width: 44px;
-  height: 44px;
-`;
+export const Cover = styled.View`
+    width:100%;
+    height:200px;
 
-const Caption = styled.Text`
-  color: #3c4560;
-  font-size: 20px;
-  font-weight: 600;
-`;
+`
 
-const Subtitle = styled.Text`
-  color: #b8bece;
-  font-weight: 600;
-  font-size: 15px;
-  text-transform: uppercase;
-  margin-top: 4px;
-`;
-
-const Wrapper = styled.View`
-  margin-left: 10px;
-`;
-
-const Container = styled.View`
-  background: white;
-  width: 315px;
-  height: 280px;
-  border-radius: 14px;
-  margin: 20px 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-`;
-
-const Cover = styled.View`
-  width: 100%;
-  height: 200px;
-  border-top-left-radius: 14px;
-  border-top-right-radius: 14px;
-  overflow: hidden;
-`;
-
-const Image = styled.Image`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
-const Title = styled.Text`
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 20px;
-  margin-left: 20px;
-  width: 170px;
-`;
+export const Images = styled.Image`
+    width:100%;
+    height:200px;
+    position:absolute;
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+`
+export const Title = styled.Text`
+        margin:20px;
+        color: white;
+        width:170px;
+        font-weight:bold;
+        font-size:26px;
+`

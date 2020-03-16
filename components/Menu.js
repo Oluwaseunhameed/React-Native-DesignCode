@@ -1,53 +1,52 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Animated, TouchableOpacity, Dimensions } from "react-native";
+import styled from "styled-components/native";
+import {
+  Animated,
+  TouchableOpacity,
+  Dimensions,
+  ScrollView
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import MenuItem from "./MenuItem";
+import MenuItem from "./MenuItems";
 import { connect } from "react-redux";
-
-function mapStateToProps(state) {
-  return { action: state.action };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    closeMenu: () =>
-      dispatch({
-        type: "CLOSE_MENU"
-      })
-  };
-}
 
 const screenHeight = Dimensions.get("window").height;
 
-const Menu = props => {
-  const [top, setTop] = useState(new Animated.Value(screenHeight));
-
+const mapStateToProps = store => ({
+  action: store?.action
+});
+const mapDispatchToProps = dispatch => ({
+  updateAll: arg => dispatch({ type: arg })
+});
+const Menu = ({ action, updateAll }) => {
+  const animate = new Animated.Value(screenHeight + 100);
+  const [top, settop] = useState(animate);
   useEffect(() => {
-    toggleMenu();
-  }, [props.action]);
+    toggle();
+  }, [action]);
 
-  const toggleMenu = () => {
-    if (props.action == "openMenu") {
+  const toggle = () => {
+    if (action === "openmenu") {
       Animated.spring(top, {
-        toValue: 54
+        toValue: 60
       }).start();
     }
-    if (props.action == "closeMenu") {
+    if (action === "closemenu") {
       Animated.spring(top, {
-        toValue: screenHeight
+        toValue: screenHeight + 100
       }).start();
     }
   };
+
   return (
-    <AnimatedContainer style={{ top: top }}>
+    <Animate style={{ top: top }}>
       <Cover>
-        <Image source={require("../assets/background2.jpg")} />
-        <Title>Hameed Oluwaseun</Title>
-        <Subtitle>Designer at Design+Code</Subtitle>
+        <Image source={require("../assets/background12.jpg")} />
+        <Title>Oluwaseun Hameed</Title>
+        <Subtitle>hameedoluwaseun@gmail.com</Subtitle>
       </Cover>
       <TouchableOpacity
-        onPress={props.closeMenu}
+        onPress={() => updateAll("Close")}
         style={{
           position: "absolute",
           top: 120,
@@ -57,21 +56,22 @@ const Menu = props => {
         }}
       >
         <CloseView>
-          <Ionicons name="ios-close" size={32} color="#546bfb" />
+          <Ionicons name="md-close" size={40} color={"#546bfb"} />
         </CloseView>
       </TouchableOpacity>
-      <Content>
-        {items.map((item, index) => (
-          <MenuItem
-            key={index}
-            icon={item.icon}
-            title={item.title}
-            text={item.text}
-          />
-        ))}
-      </Content>
-      <Content />
-    </AnimatedContainer>
+      <ScrollView>
+        <Content>
+          {Menu_item.map((item, ind) => (
+            <MenuItem
+              key={ind}
+              title={item.title}
+              icon={item.icon}
+              text={item.text}
+            />
+          ))}
+        </Content>
+      </ScrollView>
+    </Animate>
   );
 };
 
@@ -80,76 +80,70 @@ export default connect(mapStateToProps, mapDispatchToProps)(Menu);
 const Image = styled.Image`
   position: absolute;
   width: 100%;
-  height: 100%;
 `;
-
 const Title = styled.Text`
+  font-weight: bold;
+  font-size: 25px;
   color: white;
-  font-size: 24px;
-  font-weight: 600;
+  margin-bottom: 8px;
+`;
+const Subtitle = styled.Text`
+  color: white;
 `;
 
-const Subtitle = styled.Text`
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.5);
-  margin-top: 8px;
+const Content = styled.View`
+  width: 100%;
+  height: ${screenHeight};
+  background: white;
 `;
 
 const CloseView = styled.View`
-  width: 44px;
-  height: 44px;
-  border-radius: 22px;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
   background: white;
+  height: 42px;
+  elevation: 50;
+  border-radius: 50px;
+`;
+const Cover = styled.View`
+  width: 100%;
+  height: 142px;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
 `;
 
 const Container = styled.View`
   position: absolute;
-  background: white;
+  height: ${screenHeight};
   width: 100%;
-  align-self: center;
-  height: 100%;
-  z-index: 100;
-  border-radius: 10px;
+  top: 0px;
+  z-index: 2;
+  border-radius: 20px;
   overflow: hidden;
 `;
+const Animate = Animated.createAnimatedComponent(Container);
 
-const AnimatedContainer = Animated.createAnimatedComponent(Container);
-
-const Cover = styled.View`
-  height: 142px;
-  background: black;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Content = styled.View`
-  height: ${screenHeight}px;
-  background: #f0f3f5;
-  padding: 50px;
-`;
-
-const items = [
+const Menu_item = [
   {
-    icon: "ios-settings",
+    icon: "md-settings",
     title: "Account",
-    text: "Settings"
+    text: "settings"
   },
   {
-    icon: "ios-card",
+    icon: "md-card",
     title: "Billing",
     text: "payments"
   },
   {
-    icon: "ios-compass",
+    icon: "md-compass",
     title: "Learn React",
     text: "start course"
   },
   {
-    icon: "ios-exit",
+    icon: "md-exit",
     title: "Log out",
-    text: "see you soon!"
+    text: "see you soon"
   }
 ];

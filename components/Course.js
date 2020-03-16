@@ -1,100 +1,96 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/native";
 
-const Course = props => {
+export default function Course(props) {
   return (
     <Container>
-      <Cover>
+      <Display>
         <Image source={props.image} />
-        <Logo source={props.logo} resizeMode="contain" />
-        <Subtitle>{props.subtitle}</Subtitle>
-        <Title>{props.title}</Title>
-      </Cover>
-      <Content>
-        <Avatar source={props.avatar} />
-        <Caption>{props.caption}</Caption>
-        <Author>Taught by {props.author}</Author>
-      </Content>
+        <Logo source={props.logo} />
+        <Content>
+          <Highlight>{props.highlight}</Highlight>
+          <Title>{props.title}</Title>
+        </Content>
+      </Display>
+      <Footer>
+        <Pic source={props.pic} />
+        <Subtitle>
+          <SubHeader>Learn to design and code a React app</SubHeader>
+          <SubText>Taught By Oluwaseun Hameed</SubText>
+        </Subtitle>
+      </Footer>
     </Container>
   );
-};
+}
 
-export default Course;
-
-const Container = styled.View`
-  width: 335px;
-  height: 335px;
-  background: white;
-  margin: 10px 10px;
-  border-radius: 14px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+export const Container = styled.View`
+  border-radius: 10px;
+  height: 380px;
+  width: 380px;
+  margin: 20px 10px 20px 5px;
 `;
 
-const Cover = styled.View`
-  height: 260px;
-  border-top-left-radius: 14px;
-  border-top-right-radius: 14px;
-  overflow: hidden;
-  justify-content: flex-end;
+export const Display = styled.View`
+  height: 300px;
 `;
 
-const Image = styled.Image`
+export const Content = styled.View`
+  margin-left: 20px;
+  margin-top: 15px;
+`;
+
+export const Footer = styled.View`
+  background: rgba(0, 0, 0, 0.09);
+  height: 100px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const Image = styled.Image`
+  position: absolute;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  height: 300px;
   width: 100%;
-  height: 100%;
-  position: absolute;
 `;
 
-const Logo = styled.Image`
-  width: 48px;
-  height: 48px;
-  position: absolute;
-  top: 90px;
-  left: 50%;
-  margin-left: -24px;
+export const Logo = styled.Image`
+  position: relative;
+  margin: 30px auto 50px auto;
+  width: 70px;
+  height: 70px;
 `;
 
-const Title = styled.Text`
-  font-size: 24px;
+export const Highlight = styled.Text`
+  color: lightgrey;
+  font-size: 23px;
+  font-weight: 500;
+`;
+
+export const Title = styled.Text`
   color: white;
-  font-weight: 600;
-  margin-top: 4px;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  width: 170px;
+  font-size: 30px;
+  font-weight: bold;
+  width: 180px;
 `;
 
-const Subtitle = styled.Text`
-  font-size: 15px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.8);
-  text-transform: uppercase;
-  margin-left: 20px;
+export const Pic = styled.Image`
+  width: 50px;
+  height: 50px;
+  margin: 0px 20px;
+  border-radius: 50px;
 `;
 
-const Content = styled.View`
-  padding-left: 62px;
-  justify-content: center;
-  height: 75px;
+export const Subtitle = styled.View``;
+
+export const SubHeader = styled.Text`
+  width: 250px;
+  font-size: 20px;
+  font-weight: bold;
 `;
 
-const Avatar = styled.Image`
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  border-radius: 16px;
-`;
-
-const Caption = styled.Text`
-  font-size: 14px;
-  color: #3c4560;
-  font-weight: 500;
-`;
-
-const Author = styled.Text`
-  font-size: 13px;
-  color: #b8bece;
-  font-weight: 500;
-  margin-top: 4px;
+export const SubText = styled.Text`
+  font-weight: 300;
 `;

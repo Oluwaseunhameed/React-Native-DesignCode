@@ -1,28 +1,46 @@
+import "react-native-gesture-handler";
 import React from "react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import HomeScreen from "./screens/HomeScreen";
+
+import AppContainer from "./navigator/appNavigator";
 
 const initialState = {
   action: ""
 };
 
-const reducer = (state = initialState, action) => {
+const Reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "OPEN_MENU":
-      return { ...state, action: "openMenu" };
-    case "CLOSE_MENU":
-      return { ...state, action: "closeMenu" };
+    case "Open":
+      return {
+        ...state,
+        action: "openmenu"
+      };
+    case "Close":
+      return {
+        ...state,
+        action: "closemenu"
+      };
+    case "info_details":
+      console.log(action.payload);
+      return {
+        ...state,
+        name: action?.payload
+      };
     default:
       return state;
   }
 };
 
-const store = createStore(reducer);
-const App = () => (
-  <Provider store={store}>
-    <HomeScreen />
-  </Provider>
-);
+const store = createStore(Reducer);
+const App = () => {
+  return (
+    <>
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    </>
+  );
+};
 
 export default App;
